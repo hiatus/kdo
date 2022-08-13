@@ -1,0 +1,7 @@
+PWD  := $(shell pwd)
+KDIR := /lib/modules/$(shell uname -r)/build
+
+obj-m := kdo.o
+kdo-y := main.o cdev.o exec.o
+
+ccflags-y := -s -O2 -Wall -std=gnu99 -I$(src)/include
