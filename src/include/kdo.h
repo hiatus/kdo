@@ -5,6 +5,7 @@
 #include <linux/printk.h>
 #endif
 
+
 #define kdo_log(level, s) \
 	printk(level "[kdo] %s: " s, __FUNCTION__)
 
