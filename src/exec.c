@@ -97,7 +97,7 @@ static int _kdo_show(void)
 	_hidden = 0;
 
 	#ifdef DEBUG
-	kdo_log(KERN_INFO, "module unhidden\n");
+	kdo_log(KERN_INFO, "module unhidden");
 	#endif
 
 	return 0;

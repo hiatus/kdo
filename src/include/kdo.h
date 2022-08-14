@@ -7,8 +7,8 @@
 
 
 #define kdo_log(level, s) \
-	printk(level "[kdo] %s: " s, __FUNCTION__)
+	printk(level "[kdo] %s: " s "\n", __FUNCTION__)
 
 #define kdo_log_fmt(level, f, ...) \
-	printk(level "[kdo] %s: " f, __FUNCTION__, __VA_ARGS__)
+	printk(level "[kdo] %s: " f "\n", __FUNCTION__, __VA_ARGS__)
 #endif
