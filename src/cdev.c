@@ -24,28 +24,16 @@ static int _cdev_uevent(struct device *dev, struct kobj_uevent_env *env)
 
 static int _cdev_open(struct inode *inode, struct file *file)
 {
-	#ifdef DEBUG
-	kdo_log(KERN_INFO, "device open");
-	#endif
-
 	return 0;
 }
 
 static long _cdev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
-	#ifdef DEBUG
-	kdo_log(KERN_INFO, "device ioctl");
-	#endif
-
 	return 0;
 }
 
 static ssize_t _cdev_read(struct file *file, char __user *buf, size_t len, loff_t *offset)
 {
-	#ifdef DEBUG
-	kdo_log(KERN_INFO, "device read");
-	#endif
-
 	return 0;
 }
 
@@ -53,10 +41,6 @@ static ssize_t _cdev_write(struct file *file, const char __user *buf, size_t len
 {
 	size_t ret;
 	uint8_t data[CDEV_MAX_WRITE];
-
-	#ifdef DEBUG
-	kdo_log(KERN_INFO, "device write");
-	#endif
 
 	if (len > CDEV_MAX_WRITE) {
 		#ifdef DEBUG
@@ -83,10 +67,6 @@ static ssize_t _cdev_write(struct file *file, const char __user *buf, size_t len
 
 static int _cdev_release(struct inode *inode, struct file *file)
 {
-	#ifdef DEBUG
-	kdo_log(KERN_INFO, "device close");
-	#endif
-
 	return 0;
 }
 
