@@ -35,6 +35,11 @@ make
 sudo insmod kdo.ko
 ```
 
+Configuration
+-------------
+Some options can be set in `src/include/config.h`, such as the name of the created device (`kdo` by
+default) and enabling logging (disabled by default).
+
 
 Usage
 -----

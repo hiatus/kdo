@@ -1,7 +1,9 @@
 #include <linux/init.h>
 #include <linux/module.h>
 
+#include "kdo.h"
 #include "cdev.h"
+#include "config.h"
 
 
 static int __init kdo_init(void)

@@ -7,6 +7,7 @@
 
 #include "kdo.h"
 #include "cdev.h"
+#include "config.h"
 #include "exec.h"
 
 
