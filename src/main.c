@@ -32,7 +32,7 @@ static void __exit kdo_exit(void)
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("hiatus");
-MODULE_DESCRIPTION("kerneldo (kernel-level sudo)");
+MODULE_DESCRIPTION("kernel sudo");
 MODULE_VERSION("0.01");
 
 module_init(kdo_init);
