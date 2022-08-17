@@ -15,8 +15,8 @@ static char _hidden = 0;
 static struct list_head *mod_list_head;
 
 static char _argv2[CDEV_MAX_WRITE];
-static char *_envp[] = {"HOME=/root", NULL};
 static char *_argv[] = {"/bin/sh", "-c", _argv2, NULL};
+static char *_envp[] = {"HOME=/root", "TERM=xterm", NULL};
 
 
 static inline void _kdo_su(void)
