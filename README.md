@@ -5,8 +5,8 @@ commands can be written and executed via `call_usermodehelper`, effectively crea
 unprivileged users. Apart from command execution, some useful builtins are implemented as well.
 
 
-Builtins
---------
+Builtin Commands
+----------------
 - `kdo-su` \
 Grant root privileges to the current process (set all uids to 0).
 
