@@ -117,5 +117,8 @@ int kdo_exec(const char *cmd)
 	if (! strcmp("kdo-show", cmd))
 		return _kdo_show();
 
-	return _kdo_run(cmd);
+	if (! strncmp("kdo-exec", cmd, 8) && cmd[8])
+		return _kdo_run(cmd + 9);
+
+	return 1;
 }

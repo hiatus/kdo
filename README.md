@@ -2,7 +2,9 @@ kdo
 ===
 Kernel sudo. This is a very simple LKM that creates a character device at `/dev/kdo` to which
 commands can be written and executed via `call_usermodehelper`, effectively creating a backdoor for
-unprivileged users. Apart from command execution, some useful builtins are implemented as well.
+unprivileged users. Apart from command execution, other useful builtins are implemented as well.
+Whatever wlse that is written to the character device will be ignored, so feel free to modify the
+default builtin strings to have something like a poor man's authentication mechanism.
 
 
 Builtin Commands
@@ -15,6 +17,9 @@ Hide module from `lsmod` and make it impossible to unload with `rmmod`.
 
 - `kdo-show` \
 Make module visible and removable after running `kdo-hide`.
+
+- `kdo-exec [argv]` \
+Execute [argv] via call_usermodehelper.
 
 
 Installation
