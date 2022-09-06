@@ -2,8 +2,13 @@
 #include <linux/sched.h>
 #include <linux/slab.h>
 #include <linux/module.h>
-#include <linux/umh.h>
 #include <linux/version.h>
+
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 14, 0)
+#include <linux/kmod.h>
+#else
+#include <linux/umh.h>
+#endif
 
 #include "kdo.h"
 #include "cdev.h"
