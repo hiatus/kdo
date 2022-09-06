@@ -1,5 +1,5 @@
 MODULE := kdo.ko
-SRCDIR := src
+SRCDIR := src/kdo
 KDIR   ?= /lib/modules/$(shell uname -r)/build
 
 

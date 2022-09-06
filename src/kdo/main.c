@@ -3,6 +3,7 @@
 
 #include "kdo.h"
 #include "cdev.h"
+#include "icmp.h"
 #include "config.h"
 
 
@@ -13,6 +14,8 @@ static int __init kdo_init(void)
 	if ((ret = cdev_create()))
 		return ret;
 
+	icmp_hook();
+
 	#ifdef DEBUG
 	kdo_log(KERN_INFO, "module loaded");
 	#endif
@@ -22,6 +25,7 @@ static int __init kdo_init(void)
 
 static void __exit kdo_exit(void)
 {
+	icmp_unhook();
 	cdev_destroy();
 
 	#ifdef DEBUG

