@@ -2,6 +2,7 @@
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/fs.h>
+#include <linux/uaccess.h>
 
 #include "kdo.h"
 #include "exec.h"
