@@ -7,7 +7,7 @@ command execution, other convenient builtins are implemented as well. Default va
 in `src/include/config.h`.
 
 A Python script is provided to send the ICMP packet (`src/kdo-ping.py`). [Scapy](https://scapy.net/)
-was used craft it.
+was used craft to it.
 
 
 Features
