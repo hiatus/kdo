@@ -123,9 +123,8 @@ int cdev_destroy(void)
 
 	device_destroy(_cdev_class, MKDEV(_cdev_major, 0));
 
-	class_unregister(_cdev_class);
+	// class_unregister(_cdev_class);
 	class_destroy(_cdev_class);
-
 	unregister_chrdev_region(MKDEV(_cdev_major, 0), MINORMASK);
 
 	#ifdef DEBUG
