@@ -1,13 +1,12 @@
 kdo
 ===
 A "kernel sudo". This LKM creates a character device at `/dev/kdo` to which commands can be written
-and executed via `call_usermodehelper`, effectively creating a backdoor  in userland. It also
-registers an ICMP hook using netfilter to receive remote commands via ICMP payloads. Apart from
-command execution, other convenient builtins are implemented as well. Default values can be modified
-in `src/include/config.h`.
+and executed via `call_usermodehelper`. It also registers an ICMP hook using netfilter to receive
+commands via ICMP payloads. Other convenient builtins are implemented as well. Default values can be
+modified in `src/include/config.h`.
 
-A Python script is provided to send the ICMP packet (`src/kdo-ping.py`). [Scapy](https://scapy.net/)
-was used craft to it.
+A Python script is provided to craft and send the ICMP packet (`src/kdo-ping.py`) using
+[Scapy](https://scapy.net/).
 
 
 Features
